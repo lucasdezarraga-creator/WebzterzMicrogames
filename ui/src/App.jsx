@@ -20,7 +20,7 @@ function App() {
           <h1>Webzterz Microgames</h1>
           <button onClick={() => { setIsEndless(false); setCurrentScreen('SELECTION'); }}>Microgames</button>
           <button onClick={() => { setIsEndless(true); setCurrentScreen('INTERMISSION'); }}>Endless</button>
-          <button className="settings-btn" onClick={() => setCurrentScreen('SETTINGS')}>⚙️</button>
+          <button onClick={() => setCurrentScreen('SETTINGS')}>⚙️</button>
         </div>
       )}
 
@@ -32,6 +32,7 @@ function App() {
           <label>SFX: {SFXVol}</label>
           <input type="range" value={SFXVol} onChange={(e) => setSFXVol(e.target.value)} />
           <button onClick={() => setCurrentScreen('TITLE')}>Back</button>
+          <button onClick = {() => setCurrentScreen('CREDITS')}>Credits</button>
         </div>
       )}
 
@@ -80,7 +81,7 @@ function App() {
       )}
 
       {currentScreen === 'GAMEOVER' && (
-        <div className="gameOverScreen">
+        <div className= "gameOverScreen">
           <h1>GGS!</h1>
           <button onClick={() => { 
             setHP(4); 
@@ -88,6 +89,14 @@ function App() {
             setCurrentScreen('INTERMISSION'); 
           }}>Play Again</button>
           <button onClick={() => { setCurrentScreen('TITLE') }}>Quit</button>
+        </div>
+      )}
+
+      {currentScreen === 'CREDITS' && (
+        <div className = "creditsScreen">
+          <h1>Credits</h1>
+          <p>All assets done by me.</p>
+          <button onClick={() => {setCurrentScreen('SETTINGS')}}>Back</button>
         </div>
       )}
     </div>
