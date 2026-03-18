@@ -1,5 +1,6 @@
 import { useState } from 'react';
-/* global Module */ 
+import './App.css';
+import Logo from './assets/Logo.png';
 
 function App() {
   // --- 1. STATES MUST LIVE HERE (Top level of component) ---
@@ -13,14 +14,14 @@ function App() {
   // --- 2. THE RENDER LOGIC ---
   return (
     <div className="gameWrapper">
-      {/* Change 'screen' to 'currentScreen' everywhere below */}
       
       {currentScreen === 'TITLE' && (
         <div className="titleScreen">
-          <h1>Webzterz Microgames</h1>
+          <img className = "logo" src = {Logo} alt = "The logo" style = {{ width: '90%', maxWidth: '500px', height: 'auto', display: 'block', margin: '0 auto', imageRendering: 'pixelated'}}/>
           <button onClick={() => { setIsEndless(false); setCurrentScreen('SELECTION'); }}>Microgames</button>
           <button onClick={() => { setIsEndless(true); setCurrentScreen('INTERMISSION'); }}>Endless</button>
-          <button onClick={() => setCurrentScreen('SETTINGS')}>⚙️</button>
+          <button onClick={() => setCurrentScreen('SETTINGS')}>Settings</button>
+          <button onClick = {() => setCurrentScreen('CREDITS')}>Credits</button>
         </div>
       )}
 
@@ -32,7 +33,6 @@ function App() {
           <label>SFX: {SFXVol}</label>
           <input type="range" value={SFXVol} onChange={(e) => setSFXVol(e.target.value)} />
           <button onClick={() => setCurrentScreen('TITLE')}>Back</button>
-          <button onClick = {() => setCurrentScreen('CREDITS')}>Credits</button>
         </div>
       )}
 
@@ -96,7 +96,7 @@ function App() {
         <div className = "creditsScreen">
           <h1>Credits</h1>
           <p>All assets done by me.</p>
-          <button onClick={() => {setCurrentScreen('SETTINGS')}}>Back</button>
+          <button onClick={() => {setCurrentScreen('TITLE')}}>Back</button>
         </div>
       )}
     </div>
