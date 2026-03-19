@@ -1,4 +1,4 @@
-#include <emscripten.h>
+#include <emscripten/emscripten.h>
 
 extern "C" {
     EMSCRIPTEN_KEEPALIVE

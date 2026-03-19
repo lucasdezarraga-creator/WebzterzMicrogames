@@ -19,7 +19,10 @@
 
 *, h1, h2, h3, button{
   font-family: 'Webzterz-font', sans-serif;
-  text-shadow: 0 0 10px white;
+}
+
+h1, h2, h3, label, p, .score, .hp{
+  color: aqua;
 }
 
 html, body{
@@ -39,7 +42,7 @@ html, body{
   padding: 0;
 }
 
-.titleScreen{
+.titleScreen, .settingsScreen, .creditsScreen{
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -49,6 +52,7 @@ html, body{
   gap: 50px;
 }
 
+/*Scan Lines*/
 html::before, body::before{
   content: "";
   display: block;
@@ -57,20 +61,20 @@ html::before, body::before{
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(18, 16, 16, 0)50%, rgba(0, 0, 0, 0.1)50%),
-              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background: linear-gradient(rgba(18, 16, 16, 0)50%, rgba(0, 0, 0, 0.1)50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
   z-index: 1;
   background-size: 100% 8px;
   pointer-events: none;
 }
 
+/*Vignette Effect*/
 html::after, body::after{
   content: "";
   display: block;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: radial-gradient(circle, rgba(18, 16, 16, 0) 70%, rgba(0, 0, 0, 0.3) 100%);
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -84,12 +88,25 @@ html::after, body::after{
   animation: logoAnim 3s ease-in-out infinite;
 }
 
-.settingsScreen{
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+button{
+  cursor: pointer;
+  background-color: #ffff00;
+  border: none;
+  padding: 15px 30px;
+  box-shadow: 4px 4px 0 rgba(140, 158, 0, 1);
+}
+
+button:active{
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(140, 158, 0, 1);
+  transition: all 0.1s;
+}
+
+.back{
+  background: transparent;
+  box-shadow: 4px 4px 0 transparent
+}
+
+.back:active{
+  box-shadow: 2px 2px 0 transparent
 }

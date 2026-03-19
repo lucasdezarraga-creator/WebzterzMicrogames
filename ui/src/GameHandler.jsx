@@ -5,19 +5,25 @@ const GameCanvas = () => {
 
     useEffect (() => {
         console.log("It's go time!");
-    }, []);
 
-    window.Module = {
-        print: (text) => console.log('C++ says: ' + text),
-        canvas: document.getElementById('canvas'),
-        onRunTimeInitialized: () => {
-            console.log("Emscripten Bridge established!");
+        if(window.Module){
+            window.Module.canvas = canvRef.current;
+            console.log("Done!");
+        } else {
+            console.error("C++ file not found.");
         }
-    }
+        
+        return() => {
+            console.log("Clearing things up...");
+            if (window.Module) window.Module.canvas = null;
+        };
+    }, []);
 
     return(
         <div className = "game-wrapper">
             <canvas ref = {canvRef} id = "canvas" onContextMenu = {(e) => e.preventDefault()} />
         </div>
-    )
+    );
 }
+
+export default GameCanvas;

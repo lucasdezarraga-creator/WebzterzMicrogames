@@ -10,13 +10,14 @@ export function useGameEngine() {
       return;
     }
 
-    // Set up the listener for when C++ is ready
-    window.Module = {
-      onRuntimeInitialized: () => {
-        console.log("C++ Engine is fired up!");
+    if(window.Module){
+      const ogInit = window.Module.onRuntimeInitialized;
+      window.Module.onRuntimeInitialized = () => {
+        if (ogInit) ogInit();
+        console.log("Hook detected: C++ Engine is fired up!");
         setIsReady(true);
       }
-    };
+    }
   }, []);
 
   return isReady;

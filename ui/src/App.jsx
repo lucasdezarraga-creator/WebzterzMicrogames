@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Logo from './assets/Logo.png';
+import GameCanvas from './GameHandler';
+import sprites from './utils/assets';
 
 function App() {
   // --- 1. STATES MUST LIVE HERE (Top level of component) ---
@@ -16,7 +17,7 @@ function App() {
     <div>
       {currentScreen === 'TITLE' && (
         <div className="titleScreen">
-          <img className = "logo" src = {Logo} alt = "The logo"/>
+          <img className = "logo" src = {sprites.Logo} alt = "The logo"/>
           <button onClick={() => { setIsEndless(false); setCurrentScreen('SELECTION'); }}>Microgames</button>
           <button onClick={() => { setIsEndless(true); setCurrentScreen('INTERMISSION'); }}>Endless</button>
           <button onClick={() => setCurrentScreen('SETTINGS')}>Settings</button>
@@ -31,7 +32,7 @@ function App() {
           <input type="range" value={musicVol} onChange={(e) => setMusicVol(e.target.value)} />
           <label>SFX: {SFXVol}</label>
           <input type="range" value={SFXVol} onChange={(e) => setSFXVol(e.target.value)} />
-          <button onClick={() => setCurrentScreen('TITLE')}>Back</button>
+          <button className = "back" onClick={() => setCurrentScreen('TITLE')}>Back</button>
         </div>
       )}
 
@@ -41,14 +42,14 @@ function App() {
           <div className="game-grid">
             <button onClick={() => setCurrentScreen('INTERMISSION')}>Game 1</button>
           </div>
-          <button onClick={() => setCurrentScreen('TITLE')}>Back</button>
+          <button className = "back" onClick={() => setCurrentScreen('TITLE')}>Back</button>
         </div>
       )}
 
       {currentScreen === 'INTERMISSION' && (
         <div className="intermissionScreen">
           <h3>Round {round}</h3>
-          <div className="wifi-meter">📶 {HP} bars</div>
+          <div className = "hp">📶 {HP} bars</div>
           <div className = "score">Score: {score}</div>
           <button onClick={() => setCurrentScreen('GAMEON')}>GO!</button>
         </div>
@@ -57,9 +58,10 @@ function App() {
       {currentScreen === 'GAMEON' && (
         <div className="playGame">
           <p>Playing Game...</p>
+          <GameCanvas />
           <button onClick={() => setCurrentScreen('SUCCESS')}>Win</button>
           <button onClick={() => setCurrentScreen('FAILURE')}>Fail</button>
-          <button onClick={() => {
+          <button className = "back" onClick={() => {
             setCurrentScreen('TITLE');
             setHP(4);
             setRound(1);
@@ -108,7 +110,7 @@ function App() {
         <div className = "creditsScreen">
           <h1>Credits</h1>
           <p>All assets done by me.</p>
-          <button onClick={() => {setCurrentScreen('TITLE')}}>Back</button>
+          <button className = "back" onClick={() => {setCurrentScreen('TITLE')}}>Back</button>
         </div>
       )}
     </div>
