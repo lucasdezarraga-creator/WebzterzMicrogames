@@ -4,7 +4,12 @@ export function useGameEngine() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // We check if the script is already loaded
+    if(window.Module && window.Module.calledRun){
+      console.log("Hook detected: Engine was already ready!");
+      setIsReady(true);
+      return;
+    }
+
     if (window.Module && window.Module.onRuntimeInitialized) {
       setIsReady(true);
       return;
