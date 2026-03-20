@@ -14,6 +14,19 @@ function App() {
   const [isEndless, setIsEndless] = useState(false);
   const [score, setScore] = useState(0);
   const isReady = useGameEngine();
+  const [page, setPage] = useState(0);
+  const microGamesPerPage = 6;
+  const [selectedGame, setSelectedGame] = useState(0);
+
+  const microGames = [
+    {id: 1, title: 'Game1'},
+    {id: 2, title: 'Game2'},
+    {id: 3, title: 'Game3'},
+    {id: 4, title: 'Game4'},
+    {id: 5, title: 'Game5'},
+    {id: 6, title: 'Game6'},
+    {id: 7, title: 'Game7'},
+  ]
 
   return (
     <div>
@@ -34,17 +47,25 @@ function App() {
           <input type="range" value={musicVol} onChange={(e) => setMusicVol(e.target.value)} />
           <label>SFX: {SFXVol}</label>
           <input type="range" value={SFXVol} onChange={(e) => setSFXVol(e.target.value)} />
-          <button className = "back" onClick={() => setCurrentScreen('TITLE')}>Back</button>
+          <button className = "back" onClick={() => setCurrentScreen('TITLE')}/>
         </div>
       )}
 
       {currentScreen === 'SELECTION' && (
-        <div className="selectrionScreen">
+        <div className="selectionScreen">
           <h2>Select Microgame</h2>
-          <div className="game-grid">
-            <button onClick={() => setCurrentScreen('INTERMISSION')}>Game 1</button>
+          <div className="gameGrid">
+            {microGames.slice(page * microGamesPerPage, (page + 1) * microGamesPerPage).map((game) => (
+              <button key = {game.id} onClick = {() => {setSelectedGame(game.id); setCurrentScreen('INTERMISSION');}}>
+                {game.title}
+              </button>
+            ))}
           </div>
-          <button className = "back" onClick={() => setCurrentScreen('TITLE')}>Back</button>
+          <div className = "pageControl">
+            {page > 0 && (<button className = "prev" onClick={() => setPage (page - 1)}/>)}
+            {(page +  1) * microGamesPerPage < microGames.length && (<button className = "next" onClick={() => setPage(page + 1)}/>)}
+          </div>
+          <button className = "back" onClick={() => {setCurrentScreen('TITLE'); setPage(0);}}/>
         </div>
       )}
 
@@ -63,11 +84,11 @@ function App() {
           <button onClick={() => setCurrentScreen('SUCCESS')}>Win</button>
           <button onClick={() => setCurrentScreen('FAILURE')}>Fail</button>
           <button className = "back" onClick={() => {
-            setCurrentScreen('TITLE');
             setHP(4);
             setRound(1);
             setScore(0);
-            }}>Back</button>
+            {isEndless ? setCurrentScreen('TITLE') : setCurrentScreen('SELECTION')};
+            }}/>
         </div>
       )}
 

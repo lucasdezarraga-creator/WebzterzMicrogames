@@ -42,7 +42,7 @@ html, body{
   padding: 0;
 }
 
-.titleScreen, .settingsScreen, .creditsScreen{
+.titleScreen, .settingsScreen, .creditsScreen, .selectionScreen{
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -75,6 +75,7 @@ html::after, body::after{
   top: 0; left: 0; right: 0; bottom: 0;
   background: radial-gradient(circle, rgba(18, 16, 16, 0) 70%, rgba(0, 0, 0, 0.3) 100%);
   z-index: 2;
+  background-size: 100% 2px;
   pointer-events: none;
 }
 
@@ -106,16 +107,81 @@ button:active{
   box-shadow: 4px 4px 0 transparent;
   image-rendering: pixelated;
 
-  width: 48px;
-  height: 48px;
+  width: 90%;
+  max-width: 48px;
+  height: 90%;
+  max-height: 38px;
   
   background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url(./assets/sprites/BackArrow.png);
+
+  position: absolute;
+  top: 45px;
+  left: 225px;
 }
 
 .back:active{
+  box-shadow: 2px 2px 0 transparent;
+  transform: translateX(-2px);
+  transition: transform 0.1s;
+}
+
+.gameGrid{
+  display: grid;
+  grid-template-columns: repeat(3,200px);
+  grid-template-rows: repeat(2, 200px);
+  gap: 20px;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+  width: 100vh;
+}
+
+.next{
+  box-shadow: 4px 4px 0 transparent;
+  image-rendering: pixelated;
+
+  width: 48px;
+  height: 38px;
+  
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(./assets/sprites/BackArrow.png);
+
+  position: absolute;
+  bottom: 45px;
+  right: 225px;
+  transform: scaleX(-1);
+}
+
+.next:active{
+  transform: scaleX(-1);
+  translate: 2px 0;
+  box-shadow: 2px 2px 0 transparent;
+  transition: all 0.1s;
+}
+
+.prev{
+  box-shadow: 4px 4px 0 transparent;
+  image-rendering: pixelated;
+
+  width: 48px;
+  height: 38px;
+  
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(./assets/sprites/BackArrow.png);
+
+  position: absolute;
+  bottom: 45px;
+  left: 225px;
+}
+
+.prev:active{
   box-shadow: 2px 2px 0 transparent;
   transform: translateX(-2px);
   transition: transform 0.1s;
